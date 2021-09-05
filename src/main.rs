@@ -1,9 +1,8 @@
-extern crate structopt;
 extern crate colored;
+extern crate structopt;
 
-use structopt::StructOpt;
 use colored::*;
-
+use structopt::StructOpt;
 
 #[derive(StructOpt)]
 struct Options {
@@ -20,7 +19,7 @@ struct Options {
     catfile: Option<std::path::PathBuf>,
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     let options = Options::from_args();
     let message = options.message;
 
@@ -28,23 +27,23 @@ fn main() {
         eprintln!("A cat shoudn't bark like a dog.")
     }
 
-    let eye = if options.dead {"x"} else {"o"};
+    let eye = if options.dead { "x" } else { "o" };
     println!("{}", message.bright_yellow().underline());
 
     match &options.catfile {
-        Some (path) => {
-            let cat_template = std::fs::read_to_string(path).expect(&format!("could not read file {:?}", path));  
+        Some(path) => {
+            let cat_template = std::fs::read_to_string(path)?;
             let cat_picture = cat_template.replace("{eye}", eye);
             println!("{}", &cat_picture);
-
-        },
+            Ok(())
+        }
         None => {
             println!(" \\");
             println!(" \\");
             println!("  /\\_/\\");
-            println!(" ( {eye} {eye} )", eye=eye.red().bold()); // [2]
+            println!(" ( {eye} {eye} )", eye = eye.red().bold()); // [2]
             println!(" =( I )=");
+            Ok(())
         }
     }
-   
 }
