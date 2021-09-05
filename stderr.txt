@@ -1,0 +1,4 @@
+   Compiling catsay v0.1.0 (/home/justin/projects/catsay)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.50s
+     Running `target/debug/catsay woof`
+A cat shoudn't bark like a dog.

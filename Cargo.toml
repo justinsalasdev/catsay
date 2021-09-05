@@ -7,3 +7,4 @@ authors = ["Justin Salas <justinsalasdev@gmail.com>"]
 
 [dependencies]
 structopt = "0.2.15"
+colored = "1.7.0"
